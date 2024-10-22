@@ -1,10 +1,8 @@
-import Link from 'next/link'
-
 export default function Home() {
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 sm:items-start">
-        <h1 className="text-4xl text-center">🍻 Welcome to Battle Tab 🍻</h1>
+        <h1 className="text-4xl text-center">New Game 🎲</h1>
         <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
           <li>Scan the QR Code on the game console 🕹️</li>
           <li>Place your stakes 💰</li>
@@ -12,22 +10,26 @@ export default function Home() {
           <li>Dodge the tab! 😎</li>
         </ol>
         <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <Link
+          <a
             className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="/"
+            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             👉🏻 Join a game
-          </Link>
-          <Link
+          </a>
+          <a
             className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="/newGame"
+            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             👉🏻 Start a new game
-          </Link>
+          </a>
         </div>
       </main>
       <footer className="row-start-3 flex items-center justify-center">
-        <p className="flex items-center gap-2 hover:underline hover:underline-offset-4">
+        <p className="flex text-center">
           Develop by Sparkey Team for Cyberjam 2024
         </p>
       </footer>
