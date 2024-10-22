@@ -27,9 +27,7 @@ export default function Home() {
         </div>
       </main>
       <footer className="row-start-3 flex items-center justify-center">
-        <p className="flex items-center gap-2 hover:underline hover:underline-offset-4">
-          Develop by Sparkey Team for Cyberjam 2024
-        </p>
+        <p className="text-center">Develop by Sparkey Team for Cyberjam 2024</p>
       </footer>
     </div>
   )
