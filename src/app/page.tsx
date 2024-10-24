@@ -24,6 +24,7 @@ export default function Home() {
           >
             👉🏻 Start a new game
           </Link>
+          <w3m-button />
         </div>
       </main>
       <footer className="row-start-3 flex items-center justify-center">
