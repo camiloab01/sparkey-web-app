@@ -3,6 +3,8 @@ import localFont from 'next/font/local'
 import './globals.css'
 import Web3Provider from './config/web3Provider'
 import { headers } from 'next/headers'
+import { Footer } from '@/components/layout/footer'
+import { Header } from '@/components/layout/header'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -32,7 +34,11 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Web3Provider cookies={cookies}>{children}</Web3Provider>
+        <Web3Provider cookies={cookies}>
+          <Header />
+          {children}
+          <Footer />
+        </Web3Provider>
       </body>
     </html>
   )
