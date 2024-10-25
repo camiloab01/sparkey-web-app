@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
       const resultsData = await request.json()
 
       const resultsRef = await addDoc(collection(db, 'results'), {
-        gameCode: resultsData.gameCde,
+        gameCode: resultsData.gameCode,
         player1Misses: resultsData.player1Misses,
         player2Misses: resultsData.player2Misses,
         player3Misses: resultsData.player3Misses,

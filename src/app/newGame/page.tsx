@@ -61,16 +61,21 @@ export default function Home() {
     }
   }
 
-  const handleGet = async () => {
+  const handlePostResult = async () => {
     try {
-      const resp = await fetch('api/game', {
-        method: 'GET',
+      const resp = await fetch('api/result', {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify({
+          gameCode: 'TD10',
+          player1Misses: 2,
+          player2Misses: 1,
+          player3Misses: 0,
+          player4Misses: 3,
+        }),
       })
-      const message = await resp.json()
-      console.log(message)
     } catch (error) {
       console.log(error)
     }
@@ -144,7 +149,7 @@ export default function Home() {
           </button>
           <button
             className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            onClick={handleGet}
+            onClick={handlePostResult}
           >
             👉🏻 Test
           </button>
