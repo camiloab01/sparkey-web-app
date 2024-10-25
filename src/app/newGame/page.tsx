@@ -34,8 +34,8 @@ export default function Home() {
             numberOfPlayers: numberOfPlayers,
           }),
         })
-        const humanId = await resp.json()
-        console.log(humanId)
+        const gameId = await resp.json()
+        console.log(gameId)
       } catch (error) {
         console.log(error)
       }
