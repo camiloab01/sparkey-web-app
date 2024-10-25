@@ -76,6 +76,7 @@ export default function Home() {
           player4Misses: 3,
         }),
       })
+      console.log(resp)
     } catch (error) {
       console.log(error)
     }
