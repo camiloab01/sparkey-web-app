@@ -1,4 +1,4 @@
-import { collection, addDoc } from 'firebase/firestore'
+import { collection, addDoc, getCountFromServer } from 'firebase/firestore'
 import { db } from '../../../firebase/config'
 import { NextRequest, NextResponse } from 'next/server'
 
@@ -7,13 +7,19 @@ export async function POST(request: NextRequest) {
     if (request.body) {
       const gameData = await request.json()
 
-      const gameRef = await addDoc(collection(db, 'games'), {
+      const coll = collection(db, 'games')
+      const snapshot = await getCountFromServer(coll)
+      const humanId = `TD${snapshot.data().count + 1}`
+
+      await addDoc(collection(db, 'games'), {
         stake: gameData.stake,
-        creator: gameData.creator,
+        numberOfPlayers: gameData.numberOfPlayers,
+        dateTime: Date.now(),
         isActive: true,
+        humanId: humanId,
       })
 
-      return NextResponse.json(gameRef, { status: 200 })
+      return NextResponse.json(humanId, { status: 200 })
     } else {
       return NextResponse.json(
         { error: 'Bad request, game info not provided' },
