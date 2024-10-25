@@ -5,15 +5,17 @@ import { NextRequest, NextResponse } from 'next/server'
 export async function POST(request: NextRequest) {
   try {
     if (request.body) {
-      const playerData = await request.json()
+      const resultsData = await request.json()
 
-      const playerRef = await addDoc(collection(db, 'players'), {
-        address: playerData.address,
-        gameCode: playerData.gameCode,
-        position: playerData.position,
+      const resultsRef = await addDoc(collection(db, 'results'), {
+        gameCode: resultsData.gameCde,
+        player1Misses: resultsData.player1Misses,
+        player2Misses: resultsData.player2Misses,
+        player3Misses: resultsData.player3Misses,
+        player4Misses: resultsData.player4Misses,
       })
 
-      return NextResponse.json(playerRef, { status: 200 })
+      return NextResponse.json(resultsRef, { status: 200 })
     } else {
       return NextResponse.json(
         { error: 'Bad request, game info not provided' },
@@ -26,8 +28,4 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     )
   }
-}
-
-export async function GET() {
-  return NextResponse.json('Hello')
 }

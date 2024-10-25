@@ -38,8 +38,8 @@ export default function Home() {
             numberOfPlayers: numberOfPlayers,
           }),
         })
-        const gameId = await createGameResp.json()
-        console.log(gameId)
+        const gameCode = await createGameResp.json()
+        console.log(gameCode)
 
         await fetch('api/player', {
           method: 'POST',
@@ -48,8 +48,11 @@ export default function Home() {
           },
           body: JSON.stringify({
             address: address,
-            position: `player${searchParams.get('player')}`,
-            gameId: gameId,
+            position:
+              searchParams.get('player') !== null
+                ? `player${searchParams.get('player')}`
+                : 'player1',
+            gameCode: gameCode,
           }),
         })
       } catch (error) {

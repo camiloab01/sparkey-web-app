@@ -16,17 +16,17 @@ export async function POST(request: NextRequest) {
 
       const coll = collection(db, 'games')
       const snapshot = await getCountFromServer(coll)
-      const gameId = `TD${snapshot.data().count + 1}`
+      const gameCode = `TD${snapshot.data().count + 1}`
 
       await addDoc(collection(db, 'games'), {
         stake: gameData.stake,
         numberOfPlayers: gameData.numberOfPlayers,
         dateTime: Date.now(),
         isActive: true,
-        gameId: gameId,
+        gameCode: gameCode,
       })
 
-      return NextResponse.json(gameId, { status: 200 })
+      return NextResponse.json(gameCode, { status: 200 })
     } else {
       return NextResponse.json(
         { error: 'Bad request, game info not provided' },
@@ -45,11 +45,11 @@ export async function GET() {
   try {
     const coll = collection(db, 'games')
     const snapshot = await getCountFromServer(coll)
-    const latestGameId = `TD${snapshot.data().count}`
+    const latestGameCode = `TD${snapshot.data().count}`
 
     const q1 = query(
       collection(db, 'games'),
-      where('gameId', '==', latestGameId)
+      where('gameCode', '==', latestGameCode)
     )
 
     const querySnapshotGames = await getDocs(q1)
@@ -57,7 +57,7 @@ export async function GET() {
 
     const q2 = query(
       collection(db, 'players'),
-      where('gameId', '==', latestGameId)
+      where('gameCode', '==', latestGameCode)
     )
 
     const querySnapshotPlayers = await getDocs(q2)
@@ -65,7 +65,7 @@ export async function GET() {
 
     const returnData = {
       gameReady: gameDoc.data().numberOfPlayers === playersDocs.length,
-      gameCode: latestGameId,
+      gameCode: latestGameCode,
       player1:
         playersDocs.filter(
           (playerDoc) => playerDoc.data().position === 'player1'
