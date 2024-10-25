@@ -18,8 +18,8 @@ const geistMono = localFont({
 })
 
 export const metadata: Metadata = {
-  title: 'Sparkey Web App',
-  description: 'Web App for Sparkey',
+  title: 'TabDuel App',
+  description: 'Better you play, the less you pay',
 }
 
 export default async function RootLayout({
