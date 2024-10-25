@@ -10,13 +10,17 @@ import {
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useAccount } from 'wagmi'
+import { useSearchParams } from 'next/navigation'
 
 export default function Home() {
-  const { isConnected } = useAccount()
+  const { isConnected, address } = useAccount()
+  const searchParams = useSearchParams()
   const [stake, setStake] = useState<undefined | string>()
   const [numberOfPlayers, setNumberOfPlayers] = useState<undefined | number>()
   const [showErrorMessage, setShowErrorMessage] = useState(false)
   const [showNumberOfPlayersMsg, setShowNumberOfPlayersMsg] = useState(false)
+
+  console.log(searchParams.get('player'))
 
   const handleCreateGame = async () => {
     if (!numberOfPlayers || !stake) {
@@ -24,7 +28,7 @@ export default function Home() {
     } else {
       setShowErrorMessage(false)
       try {
-        const resp = await fetch('api/game', {
+        const createGameResp = await fetch('api/game', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -34,11 +38,38 @@ export default function Home() {
             numberOfPlayers: numberOfPlayers,
           }),
         })
-        const gameId = await resp.json()
+        const gameId = await createGameResp.json()
         console.log(gameId)
+
+        await fetch('api/player', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            address: address,
+            position: `player${searchParams.get('player')}`,
+            gameId: gameId,
+          }),
+        })
       } catch (error) {
         console.log(error)
       }
+    }
+  }
+
+  const handleGet = async () => {
+    try {
+      const resp = await fetch('api/game', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      const message = await resp.json()
+      console.log(message)
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -107,6 +138,12 @@ export default function Home() {
             disabled={!isConnected || !stake || !numberOfPlayers}
           >
             👉🏻 Create game
+          </button>
+          <button
+            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
+            onClick={handleGet}
+          >
+            👉🏻 Test
           </button>
           <p>Or</p>
           <Link
