@@ -23,11 +23,6 @@ export default function Home() {
           </Link>
         </div>
       </main>
-      <footer className="row-start-3 flex items-center justify-center">
-        <p className="flex text-center">
-          Develop by Sparkey Team for Cyberjam 2024
-        </p>
-      </footer>
     </div>
   )
 }
